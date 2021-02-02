@@ -16,6 +16,8 @@
         'notifications': [],
         'pnp-templates': [],
         'web': [
+            'plugins/metrics/phion.py',
+            'plugins/perfometers/phion.py',
             'plugins/wato/check_parameters_phion_firewall.py',
             'plugins/wato/check_parameters_phion_vpnusers.py',
         ]
