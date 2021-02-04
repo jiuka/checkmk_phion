@@ -17,14 +17,13 @@
         'pnp-templates': [],
         'web': [
             'plugins/metrics/phion.py',
-            'plugins/perfometers/phion.py',
             'plugins/wato/check_parameters_phion_firewall.py',
             'plugins/wato/check_parameters_phion_vpnusers.py',
         ]
     },
     'name': 'phion',
     'title': u'Checkmk extension for Phion-MIB / Barracuda CloudGen Firewall',
-    'version': '1.0',
+    'version': '1.1',
     'version.min_required': '2.0.0b5',
     'version.packaged': '2.0.0'
 }

@@ -19,18 +19,24 @@
 
 from cmk.gui.i18n import _
 
-from cmk.gui.plugins.metrics import metric_info, check_metrics
+from cmk.gui.plugins.metrics import metric_info, check_metrics, perfometer_info, MB
+
+metric_info["phion_vpnusers"] = {
+    "title": _("Concurrent VPN Users"),
+    "unit": "count",
+    "color": "#1DB1FF",
+}
 
 metric_info["phion_firewall_sessions"] = {
     "title": _("Concurrent Sessions"),
     "unit": "count",
-    "color": "#ff8000",
+    "color": "#1DB1FF",
 }
 
 metric_info["phion_firewall_traffic"] = {
     "title": _("Bandwidth"),
     "unit": "bits/s",
-    "color": "#00e060",
+    "color": "#0088CE",
 }
 
 metric_info["phion_firewall_packets"] = {
@@ -50,3 +56,31 @@ check_metrics["check_mk-phion_firewall"] = {
         "name": "phion_firewall_packets",
     },
 }
+
+check_metrics["check_mk-phion_vpnusers"] = {
+    "users": {
+        "name": "phion_vpnusers",
+    },
+}
+
+perfometer_info.append({
+    "type": "logarithmic",
+    "metric": "phion_vpnusers",
+    "half_value": 10,
+    "exponent": 2,
+})
+
+perfometer_info.append({
+    "type": "stacked",
+    "perfometers": [{
+        "type": "logarithmic",
+        "metric": "phion_firewall_sessions",
+        "half_value": 10,
+        "exponent": 2,
+    }, {
+        "type": "logarithmic",
+        "metric": "phion_firewall_traffic",
+        "half_value": MB,
+        "exponent": 2
+    }],
+})
