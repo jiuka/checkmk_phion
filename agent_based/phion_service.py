@@ -1,8 +1,9 @@
+#!/usr/bin/env python3
 # -*- encoding: utf-8; py-indent-offset: 4 -*-
 #
-# phion_service - Checks the number of active VPN users.
+# Checks based on the Phion-MIB for the Barracuda CloudGen Firewall.
 #
-# Copyright (C) 2020  Marius Rieder <marius.rieder@scs.ch>
+# Copyright (C) 2021  Marius Rieder <marius.rieder@scs.ch>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -17,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-#
+
 # Example excerpt from SNMP data:
 # .1.3.6.1.4.1.10704.1.1.1.1.59.8.94.83.38.67.65.70.86 BFW1_ACS --> PHION-MIB::serverServiceName."BFW1_ACS"
 # .1.3.6.1.4.1.10704.1.1.1.1.59.8.94.83.38.67.67.87.80 BFW1_FW1 --> PHION-MIB::serverServiceName."BFW1_FW1"
@@ -68,7 +69,6 @@ def discovery_phion_service(section):
 
 def check_phion_service(item, section):
     if item not in section:
-        yield Result(state=State.UNKNOWN, summary='Service %s not found.' % item)
         return
 
     if section[item] == 1:

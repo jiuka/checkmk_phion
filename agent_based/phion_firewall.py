@@ -1,8 +1,9 @@
+#!/usr/bin/env python3
 # -*- encoding: utf-8; py-indent-offset: 4 -*-
 #
-# phion_firewall - Checks the number of active VPN users.
+# Checks based on the Phion-MIB for the Barracuda CloudGen Firewall.
 #
-# Copyright (C) 2020  Marius Rieder <marius.rieder@scs.ch>
+# Copyright (C) 2021  Marius Rieder <marius.rieder@scs.ch>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -17,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-#
+
 # Example excerpt from SNMP data:
 # .1.3.6.1.4.1.10704.1.10.1.1.115.8.116.102.97.119.116.83.0 725 --> PHION-MIB::firewallSessions.115.8.116.102.97.119.116.83.0
 # .1.3.6.1.4.1.10704.1.10.1.2.115.8.116.102.97.119.116.83.0 2076 --> PHION-MIB::packetThroughput.115.8.116.102.97.119.116.83.0
@@ -83,7 +84,7 @@ def check_phion_firewall(params, section):
         levels_upper=params.get('traffic', None),
         label='Data Throughput',
         metric_name='traffic',
-        render_func=lambda v: render.networkbandwidth(v/8)
+        render_func=lambda v: render.networkbandwidth(v / 8)
     )
 
 
