@@ -4,9 +4,13 @@
 ![flake8](https://github.com/jiuka/checkmk_phion/workflows/Lint/badge.svg)
 ![pytest](https://github.com/jiuka/checkmk_phion/workflows/pytest/badge.svg)
 
+## Description
+
 Checks based on the Phion-MIB for the Barracuda CloudGen Firewall.
 
-Description
+ * phion_firewall - Checks the number of firewall sessions and the data / packet Throughput.
+ * phion_service - Checks the status of the services.
+ * phion_vpnusers - Checks the number of concurrent VPN users.
 
 ## Development
 
