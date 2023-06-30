@@ -31,6 +31,7 @@ from cmk.base.plugins.agent_based import phion_firewall
 
 
 @pytest.mark.parametrize('string_table, result', [
+    ([], {}),
     ([[10, 20, 30]], {'sessions': 10, 'packages': 20, 'traffic': 30}),
 ])
 def test_parse_phion_firewall(string_table, result):

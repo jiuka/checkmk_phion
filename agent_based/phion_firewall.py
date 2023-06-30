@@ -35,6 +35,8 @@ from .agent_based_api.v1 import (
 
 
 def parse_phion_firewall(string_table):
+    if not string_table:
+        return {}
     return {
         'sessions': int(string_table[0][0]),
         'packages': int(string_table[0][1]),
