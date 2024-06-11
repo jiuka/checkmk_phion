@@ -27,9 +27,10 @@
 # .1.3.6.1.4.1.10704.1.1.1.2.59.8.94.83.38.67.67.87.80 1 --> PHION-MIB::serverServiceState."BFW1_FW1"
 # .1.3.6.1.4.1.10704.1.1.1.2.59.8.94.83.38.67.83.49.78 1 --> PHION-MIB::serverServiceState."BFW1_VPN"
 
-from .agent_based_api.v1 import (
-    register,
+from cmk.agent_based.v2 import (
     SNMPTree,
+    CheckPlugin,
+    SimpleSNMPSection,
     exists,
     Service,
     Result,
@@ -41,7 +42,7 @@ def parse_phion_service(string_table):
     return {entry[0]: int(entry[1]) for entry in string_table}
 
 
-register.snmp_section(
+snmp_section_phion_service = SimpleSNMPSection(
     name='phion_service',
     detect=exists('.1.3.6.1.4.1.10704.1.2'),
     fetch=SNMPTree(
@@ -77,7 +78,7 @@ def check_phion_service(item, section):
         yield Result(state=State.CRIT, summary='Service %s is %s.' % (item, SERVICESTATEMAP[section[item]]))
 
 
-register.check_plugin(
+check_plugin_phion_firewall = CheckPlugin(
     name='phion_service',
     service_name='Service %s',
     discovery_function=discovery_phion_service,

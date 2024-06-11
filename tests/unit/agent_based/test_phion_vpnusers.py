@@ -21,7 +21,7 @@
 #
 
 import pytest  # type: ignore[import]
-from cmk.base.plugins.agent_based.agent_based_api.v1 import (
+from cmk.agent_based.v2 import (
     Metric,
     Result,
     Service,
@@ -48,7 +48,7 @@ def test_discovery_phion_vpnusers(section, result):
         ]
     ),
     (
-        {'users': (30, 40)},
+        {'users': ('fixed', (30, 40))},
         [[24]],
         [
             Result(state=State.OK, summary='VPN Users: 24'),
@@ -56,7 +56,7 @@ def test_discovery_phion_vpnusers(section, result):
         ]
     ),
     (
-        {'users': (10, 40)},
+        {'users': ('fixed', (10, 40))},
         [[24]],
         [
             Result(state=State.WARN, summary='VPN Users: 24 (warn/crit at 10/40)'),
@@ -64,7 +64,7 @@ def test_discovery_phion_vpnusers(section, result):
         ]
     ),
     (
-        {'users': (10, 20)},
+        {'users': ('fixed', (10, 20))},
         [[24]],
         [
             Result(state=State.CRIT, summary='VPN Users: 24 (warn/crit at 10/20)'),

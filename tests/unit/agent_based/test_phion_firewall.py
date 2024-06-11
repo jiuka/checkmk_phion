@@ -21,7 +21,7 @@
 #
 
 import pytest  # type: ignore[import]
-from cmk.base.plugins.agent_based.agent_based_api.v1 import (
+from cmk.agent_based.v2 import (
     Metric,
     Result,
     Service,
@@ -60,7 +60,7 @@ def test_discovery_phion_firewall(section, result):
         ]
     ),
     (
-        {'sessions': (20, 30), 'packages': (30, 40), 'traffic': (40, 50)},
+        {'sessions': ('fixed', (20, 30)), 'packages': ('fixed', (30, 40)), 'traffic': ('fixed', (40, 50))},
         {'sessions': 10, 'packages': 20, 'traffic': 30},
         [
             Result(state=State.OK, summary='Concurrent Sessions: 10'),
@@ -72,7 +72,7 @@ def test_discovery_phion_firewall(section, result):
         ]
     ),
     (
-        {'sessions': (0, 30), 'packages': (10, 40), 'traffic': (20, 50)},
+        {'sessions': ('fixed', (0, 30)), 'packages': ('fixed', (10, 40)), 'traffic': ('fixed', (20, 50))},
         {'sessions': 10, 'packages': 20, 'traffic': 30},
         [
             Result(state=State.WARN, summary='Concurrent Sessions: 10 (warn/crit at 0/30)'),
@@ -84,7 +84,7 @@ def test_discovery_phion_firewall(section, result):
         ]
     ),
     (
-        {'sessions': (0, 10), 'packages': (10, 20), 'traffic': (20, 30)},
+        {'sessions': ('fixed', (0, 10)), 'packages': ('fixed', (10, 20)), 'traffic': ('fixed', (20, 30))},
         {'sessions': 10, 'packages': 20, 'traffic': 30},
         [
             Result(state=State.CRIT, summary='Concurrent Sessions: 10 (warn/crit at 0/10)'),

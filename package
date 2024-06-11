@@ -3,28 +3,18 @@
     'description': u'Check based on the Phion MIB for Barracuda CloudGen Firewall.',
     'download_url': 'https://github.com/jiuka/checkmk_phion/releases',
     'files': {
-        'agent_based': [
-            'phion_firewall.py',
-            'phion_service.py',
-            'phion_vpnusers.py',
+        'cmk_addons_plugins': [
+            'phion/agent_based/phion_firewall.py',
+            'phion/agent_based/phion_service.py',
+            'phion/agent_based/phion_vpnusers.py',
+            'phion/graphing/phion.py',
+            'phion/rulesets/check_parameters.py',
         ],
-        'agents': [],
-        'checkman': [],
-        'checks': [],
-        'doc': [],
-        'inventory': [],
-        'notifications': [],
-        'pnp-templates': [],
-        'web': [
-            'plugins/metrics/phion.py',
-            'plugins/wato/check_parameters_phion_firewall.py',
-            'plugins/wato/check_parameters_phion_vpnusers.py',
-        ]
     },
     'name': 'phion',
     'title': u'Checkmk extension for Phion-MIB / Barracuda CloudGen Firewall',
-    'version': '1.2.2',
-    'version.min_required': '2.0.0b6',
-    'version.packaged': '2.2.0',
-    'version.usable_until': '2.3.0'
+    'version': '2.3.0-2',
+    'version.min_required': '2.3.0p3',
+    'version.packaged': '2.3.0',
+    'version.usable_until': '2.4.0'
 }

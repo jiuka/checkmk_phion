@@ -24,9 +24,10 @@
 # .1.3.6.1.4.1.10704.1.10.1.2.115.8.116.102.97.119.116.83.0 2076 --> PHION-MIB::packetThroughput.115.8.116.102.97.119.116.83.0
 # .1.3.6.1.4.1.10704.1.10.1.3.115.8.116.102.97.119.116.83.0 458372 --> PHION-MIB::dataThroughput.115.8.116.102.97.119.116.83.0
 
-from .agent_based_api.v1 import (
-    register,
+from cmk.agent_based.v2 import (
     SNMPTree,
+    CheckPlugin,
+    SimpleSNMPSection,
     exists,
     Service,
     check_levels,
@@ -44,7 +45,7 @@ def parse_phion_firewall(string_table):
     }
 
 
-register.snmp_section(
+snmp_section_phion_firewall = SimpleSNMPSection(
     name='phion_firewall',
     detect=exists('.1.3.6.1.4.1.10704.1.2'),
     fetch=SNMPTree(
@@ -90,7 +91,7 @@ def check_phion_firewall(params, section):
     )
 
 
-register.check_plugin(
+check_plugin_phion_firewall = CheckPlugin(
     name='phion_firewall',
     service_name='Firewall',
     discovery_function=discovery_phion_firewall,

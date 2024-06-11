@@ -21,7 +21,7 @@
 #
 
 import pytest  # type: ignore[import]
-from cmk.base.plugins.agent_based.agent_based_api.v1 import (
+from cmk.agent_based.v2 import (
     Result,
     Service,
     State,

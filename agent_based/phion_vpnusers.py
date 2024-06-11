@@ -22,15 +22,26 @@
 # Example excerpt from SNMP data:
 # .1.3.6.1.4.1.10704.1.11 47 --> PHION-MIB::vpnUsers
 
-from cmk.base.plugins.agent_based.agent_based_api.v1 import (
-    register,
+from cmk.agent_based.v2 import (
     SNMPTree,
+    SimpleSNMPSection,
+    CheckPlugin,
     exists,
     Service,
-    check_levels
+    check_levels,
+    StringTable
 )
 
-register.snmp_section(
+Section = int | None
+
+
+def parse_phion_vpnusers(string_table: StringTable) -> Section:
+    if not string_table:
+        return None
+    return int(string_table[0][0])
+
+
+snmp_section_phion_vpnusers = SimpleSNMPSection(
     name='phion_vpnusers',
     detect=exists('.1.3.6.1.4.1.10704.1.2'),
     fetch=SNMPTree(
@@ -39,20 +50,19 @@ register.snmp_section(
             '11',  # PHION-MIB::vpnUsers
         ],
     ),
+    parse_function=parse_phion_vpnusers,
 )
 
 
-def discovery_phion_vpnusers(section):
+def discovery_phion_vpnusers(section: Section):
     if section:
         yield Service()
 
 
-def check_phion_vpnusers(params, section):
+def check_phion_vpnusers(params, section: Section):
     if section:
-        users = int(section[0][0])
-
         yield from check_levels(
-            users,
+            section,
             levels_upper=params.get('users', None),
             label='VPN Users',
             metric_name='users',
@@ -60,7 +70,7 @@ def check_phion_vpnusers(params, section):
         )
 
 
-register.check_plugin(
+check_plugin_phion_firewall = CheckPlugin(
     name='phion_vpnusers',
     service_name='VPN Users',
     discovery_function=discovery_phion_vpnusers,
