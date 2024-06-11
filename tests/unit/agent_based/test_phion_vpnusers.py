@@ -31,8 +31,16 @@ from cmk.base.plugins.agent_based import phion_vpnusers
 
 
 @pytest.mark.parametrize('section, result', [
-    ([], []),
-    ([[24]], [Service()]),
+    ([], None),
+    ([[24]], 24),
+])
+def test_parse_phion_vpnusers(section, result):
+    assert phion_vpnusers.parse_phion_vpnusers(section) == result
+
+
+@pytest.mark.parametrize('section, result', [
+    (None, []),
+    (24, [Service()]),
 ])
 def test_discovery_phion_vpnusers(section, result):
     assert list(phion_vpnusers.discovery_phion_vpnusers(section)) == result
@@ -41,7 +49,7 @@ def test_discovery_phion_vpnusers(section, result):
 @pytest.mark.parametrize('params, section, result', [
     (
         {},
-        [[24]],
+        24,
         [
             Result(state=State.OK, summary='VPN Users: 24'),
             Metric('users', 24.0)
@@ -49,7 +57,7 @@ def test_discovery_phion_vpnusers(section, result):
     ),
     (
         {'users': ('fixed', (30, 40))},
-        [[24]],
+        24,
         [
             Result(state=State.OK, summary='VPN Users: 24'),
             Metric('users', 24.0, levels=(30.0, 40.0))
@@ -57,7 +65,7 @@ def test_discovery_phion_vpnusers(section, result):
     ),
     (
         {'users': ('fixed', (10, 40))},
-        [[24]],
+        24,
         [
             Result(state=State.WARN, summary='VPN Users: 24 (warn/crit at 10/40)'),
             Metric('users', 24.0, levels=(10.0, 40.0))
@@ -65,7 +73,7 @@ def test_discovery_phion_vpnusers(section, result):
     ),
     (
         {'users': ('fixed', (10, 20))},
-        [[24]],
+        24,
         [
             Result(state=State.CRIT, summary='VPN Users: 24 (warn/crit at 10/20)'),
             Metric('users', 24.0, levels=(10.0, 20.0))
