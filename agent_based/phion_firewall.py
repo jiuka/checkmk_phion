@@ -34,6 +34,7 @@ from cmk.agent_based.v2 import (
     render
 )
 
+
 def parse_phion_firewall(string_table):
     if not string_table:
         return {}
@@ -44,7 +45,7 @@ def parse_phion_firewall(string_table):
     }
 
 
-snmp_section_phion_firewall= SimpleSNMPSection(
+snmp_section_phion_firewall = SimpleSNMPSection(
     name='phion_firewall',
     detect=exists('.1.3.6.1.4.1.10704.1.2'),
     fetch=SNMPTree(
