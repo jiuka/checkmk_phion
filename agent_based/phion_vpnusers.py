@@ -55,12 +55,12 @@ snmp_section_phion_vpnusers = SimpleSNMPSection(
 
 
 def discovery_phion_vpnusers(section: Section):
-    if section:
+    if section is not None:
         yield Service()
 
 
 def check_phion_vpnusers(params, section: Section):
-    if section:
+    if section is not None:
         yield from check_levels(
             section,
             levels_upper=params.get('users', None),

@@ -13,7 +13,7 @@
     },
     'name': 'phion',
     'title': u'Checkmk extension for Phion-MIB / Barracuda CloudGen Firewall',
-    'version': '2.3.0-2',
+    'version': '2.3.0',
     'version.min_required': '2.3.0p3',
     'version.packaged': '2.3.0',
     'version.usable_until': '2.4.0'

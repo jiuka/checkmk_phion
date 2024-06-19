@@ -32,6 +32,7 @@ from cmk.base.plugins.agent_based import phion_vpnusers
 
 @pytest.mark.parametrize('section, result', [
     ([], None),
+    ([[0]], 0),
     ([[24]], 24),
 ])
 def test_parse_phion_vpnusers(section, result):
@@ -40,6 +41,7 @@ def test_parse_phion_vpnusers(section, result):
 
 @pytest.mark.parametrize('section, result', [
     (None, []),
+    (0, [Service()]),
     (24, [Service()]),
 ])
 def test_discovery_phion_vpnusers(section, result):
@@ -53,6 +55,14 @@ def test_discovery_phion_vpnusers(section, result):
         [
             Result(state=State.OK, summary='VPN Users: 24'),
             Metric('users', 24.0)
+        ]
+    ),
+    (
+        {},
+        0,
+        [
+            Result(state=State.OK, summary='VPN Users: 0'),
+            Metric('users', 0.0)
         ]
     ),
     (
