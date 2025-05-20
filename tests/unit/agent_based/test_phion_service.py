@@ -26,7 +26,7 @@ from cmk.agent_based.v2 import (
     Service,
     State,
 )
-from cmk.base.plugins.agent_based import phion_service
+from cmk_addons.plugins.phion.agent_based import phion_service
 
 
 @pytest.mark.parametrize('string_table, result', [

@@ -47,7 +47,7 @@ def parse_phion_firewall(string_table):
 
 snmp_section_phion_firewall = SimpleSNMPSection(
     name='phion_firewall',
-    detect=exists('.1.3.6.1.4.1.10704.1.2'),
+    detect=exists('.1.3.6.1.4.1.10704.1.10.1.*'),
     fetch=SNMPTree(
         base='.1.3.6.1.4.1.10704.1.10.1',
         oids=[

@@ -44,7 +44,7 @@ def parse_phion_service(string_table):
 
 snmp_section_phion_service = SimpleSNMPSection(
     name='phion_service',
-    detect=exists('.1.3.6.1.4.1.10704.1.2'),
+    detect=exists('.1.3.6.1.4.1.10704.1.1.1.*'),
     fetch=SNMPTree(
         base='.1.3.6.1.4.1.10704.1.1.1',
         oids=[

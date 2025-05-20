@@ -27,7 +27,7 @@ from cmk.agent_based.v2 import (
     Service,
     State,
 )
-from cmk.base.plugins.agent_based import phion_firewall
+from cmk_addons.plugins.phion.agent_based import phion_firewall
 
 
 @pytest.mark.parametrize('string_table, result', [
