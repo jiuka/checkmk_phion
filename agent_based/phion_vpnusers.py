@@ -43,7 +43,7 @@ def parse_phion_vpnusers(string_table: StringTable) -> Section:
 
 snmp_section_phion_vpnusers = SimpleSNMPSection(
     name='phion_vpnusers',
-    detect=exists('.1.3.6.1.4.1.10704.1.2'),
+    detect=exists('.1.3.6.1.4.1.10704.1.*'),
     fetch=SNMPTree(
         base='.1.3.6.1.4.1.10704.1',
         oids=[
